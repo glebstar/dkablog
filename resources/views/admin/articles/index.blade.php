@@ -5,14 +5,14 @@
     <div class="container">
 
         @component('admin.components.breadcrumb')
-            @slot('title') Список категорий @endslot
+            @slot('title') Список новостей @endslot
             @slot('parent') Главная @endslot
-            @slot('active') Категории @endslot
+            @slot('active') Новости @endslot
         @endcomponent
 
         <hr>
 
-        <a href="{{route('admin.category.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus-square-o"></i> Создать категорию</a>
+        <a href="{{route('admin.article.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus-square-o"></i> Создать новость</a>
         <table class="table table-striped">
             <thead>
             <th>Наименование</th>
@@ -20,16 +20,16 @@
             <th class="text-right">Действие</th>
             </thead>
             <tbody>
-            @forelse ($categories as $category)
+            @forelse ($articles as $article)
                 <tr>
-                    <td>{{$category->title}}</td>
-                    <td>{{$category->published}}</td>
+                    <td>{{$article->title}}</td>
+                    <td>{{$article->published}}</td>
                     <td class="text-right">
-                        <form method="post" onsubmit="return confirm('Удалить') ? true: false" action="{{ route('admin.category.destroy', $category) }}">
+                        <form method="post" onsubmit="return confirm('Удалить') ? true: false" action="{{ route('admin.article.destroy', $article) }}">
                             <input type="hidden" name="_method" value="DELETE" />
                             {{ csrf_field() }}
 
-                            <a href="{{route('admin.category.edit', $category)}}"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('admin.article.edit', $article)}}"><i class="fa fa-edit"></i></a>
 
                             <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
                         </form>
@@ -42,13 +42,13 @@
             @endforelse
             </tbody>
             <tfoot>
-                <tr>
-                    <td colspan="3">
-                        <ul class="pagination pull-right">
-                            {{ $categories->links() }}
-                        </ul>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="3">
+                    <ul class="pagination pull-right">
+                        {{ $articles->links() }}
+                    </ul>
+                </td>
+            </tr>
             </tfoot>
         </table>
     </div>
